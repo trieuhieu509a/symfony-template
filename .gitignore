@@ -9,14 +9,4 @@
 /vendor/
 ###< symfony/framework-bundle ###
 
-.idea/modules.xml
-
-.idea/php.xml
-
-.idea/sonarlint/issuestore/index.pb
-
-.idea/symfony-template.iml
-
-.idea/vcs.xml
-
-.idea/workspace.xml
+.idea/*
