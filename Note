@@ -9,3 +9,5 @@ composer require symfony/asset
 composer require symfony/webpack-encore-bundle
 ./node_modules/.bin/encore production
 ./node_modules/.bin/encore dev --watch
+
+composer require orm
