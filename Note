@@ -11,3 +11,23 @@ composer require symfony/webpack-encore-bundle
 ./node_modules/.bin/encore dev --watch
 
 composer require orm
+
+bin/console make:entity
+ > Category
+ have property subcategories
+    > type : relation
+    > relation type : OneToMany
+    > field inside Category : parent
+
+plural @ORM\Table(name="categories")
+
+bin/console doctrine:database:create
+
+bin/console make:migration
+
+bin/console doctrine:migrations:migrate
+
+composer require orm-fixtures --dev
+bin/console make:fixture
+    > CategoryFixtures
+bin/console doctrine:fixture:load
