@@ -31,3 +31,6 @@ composer require orm-fixtures --dev
 bin/console make:fixture
     > CategoryFixtures
 bin/console doctrine:fixture:load
+
+bin/console doctrine:schema:drop -n -q --force --full-database && rm migrations/*.php && bin/console make:migration && bin/console doctrine:migrations:migrate -n -q
+bin/console doctrine:fixture:load
