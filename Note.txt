@@ -41,3 +41,6 @@ bin/console make:twig-extension
 composer require symfony/var-dumper --dev
 composer require symfony/profiler-pack --dev
 composer require symfony/debug-bundle --dev
+
+// for autowire paramater in controller
+composer require sensio/framework-extra-bundle
