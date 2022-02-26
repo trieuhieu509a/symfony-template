@@ -44,3 +44,6 @@ composer require symfony/debug-bundle --dev
 
 // for autowire paramater in controller
 composer require sensio/framework-extra-bundle
+
+composer require form validator
+    > bin/console make:form
