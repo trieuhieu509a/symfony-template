@@ -47,3 +47,15 @@ composer require sensio/framework-extra-bundle
 
 composer require form validator
     > bin/console make:form
+
+composer require --dev phpunit/phpunit symfony/test-pack
+bin/console make:unit-test
+    SluggerTest
+
+
+########## run tests.sh #########
+    ./tests.sh
+        test with specific folder
+    ./tests.sh folder-test
+        test with specific folder and rebuild database
+    ./tests.sh folder-test -db
