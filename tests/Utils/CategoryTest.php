@@ -2,13 +2,19 @@
 
 namespace App\Tests\Utils;
 
+use App\Utils\CategoryTreeAdminList;
+use App\Utils\CategoryTreeAdminOptionList;
+use App\Utils\CategoryTreeFrontPage;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use App\Twig\AppExtension;
 
 class CategoryTest extends KernelTestCase
 {
+    /* @var CategoryTreeFrontPage */
     protected $mockedCategoryTreeFrontPage;
+    /* @var CategoryTreeAdminList */
     protected $mockedCategoryTreeAdminList;
+    /* @var CategoryTreeAdminOptionList */
     protected $mockedCategoryTreeAdminOptionList;
 
     protected function setUp(): void
@@ -42,6 +48,16 @@ class CategoryTest extends KernelTestCase
         $main_parent_id = $this->mockedCategoryTreeFrontPage->getMainParent($id)['id'];
         $array = $this->mockedCategoryTreeFrontPage->buildTree($main_parent_id);
         $this->assertSame($string, $this->mockedCategoryTreeFrontPage->getCategoryList($array));
+    }
+
+    /**
+     * @dataProvider dataForCategoryTreeAdminOptionList
+     */
+    public function testCategoryTreeAdminOptionList($arrayToCompare, $arrayFromDb)
+    {
+        $this->mockedCategoryTreeAdminOptionList->categoriesArrayFromDb = $arrayFromDb;
+        $arrayFromDb = $this->mockedCategoryTreeAdminOptionList->buildTree();
+        $this->assertSame($arrayToCompare, $this->mockedCategoryTreeAdminOptionList->getCategoryList($arrayFromDb));
     }
 
     public function dataForCategoryTreeFrontPage()
@@ -89,6 +105,24 @@ class CategoryTest extends KernelTestCase
             ],
             14
 
+        ];
+    }
+
+    public function dataForCategoryTreeAdminOptionList()
+    {
+        yield [
+            [
+                ['name'=>'Electronics','id'=>1],
+                ['name'=>'--Computers','id'=>6],
+                ['name'=>'----Laptops','id'=>8],
+                ['name'=>'------HP','id'=>14]
+            ],
+            [
+                ['name'=>'Electronics','id'=>1, 'parent_id'=>null],
+                ['name'=>'Computers','id'=>6, 'parent_id'=>1],
+                ['name'=>'Laptops','id'=>8, 'parent_id'=>6],
+                ['name'=>'HP','id'=>14, 'parent_id'=>8]
+            ]
         ];
     }
 }
