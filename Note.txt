@@ -62,3 +62,5 @@ bin/console make:unit-test
 
 bin/console make:functional-test
     AdminControllerCategoriesTest
+
+bin/console make:fixtures VideoFixtures
