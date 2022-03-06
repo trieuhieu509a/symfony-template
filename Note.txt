@@ -64,3 +64,6 @@ bin/console make:functional-test
     AdminControllerCategoriesTest
 
 bin/console make:fixtures VideoFixtures
+
+# bundle for paginator
+composer require knplabs/knp-paginator-bundle
