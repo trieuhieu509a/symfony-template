@@ -32,6 +32,18 @@ class VideoRepository extends ServiceEntityRepository
         return $pagination;
     }
 
+    public function findByChildIds(array $value, int $page)
+    {
+
+        $dbquery = $this->createQueryBuilder('v')
+            ->andWhere('v.category IN (:val)')
+            ->setParameter('val', $value)
+            ->getQuery();
+
+        $pagination = $this->paginator->paginate($dbquery, $page, 5);
+        return $pagination;
+    }
+
     // /**
     //  * @return Video[] Returns an array of Video objects
     //  */

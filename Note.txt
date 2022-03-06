@@ -67,3 +67,5 @@ bin/console make:fixtures VideoFixtures
 
 # bundle for paginator
 composer require knplabs/knp-paginator-bundle
+
+ composer require symfony/translation
