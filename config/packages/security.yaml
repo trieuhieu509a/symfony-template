@@ -34,6 +34,7 @@ security:
                 # the page users are redirect to when there is no previous page stored in the session
                 # ( for example when users access directly to login page )
                 default_target_path: admin_main_page
+                # field name that will use for login user
                 username_parameter: _email
             # https://symfony.com/doc/current/security/form_login_setup.html
             logout:
