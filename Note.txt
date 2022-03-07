@@ -69,3 +69,8 @@ bin/console make:fixtures VideoFixtures
 composer require knplabs/knp-paginator-bundle
 
  composer require symfony/translation
+
+###################security##################
+composer require security
+./bin/console make:user
+./bin/console make:entity User
