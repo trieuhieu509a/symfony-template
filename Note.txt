@@ -79,3 +79,6 @@ composer require security
 composer require sensiolabs/security-checker
 bin/console security:check
     composer update # for update all package
+
+bin/console make:form
+    UserType
