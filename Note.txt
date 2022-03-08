@@ -74,3 +74,8 @@ composer require knplabs/knp-paginator-bundle
 composer require security
 ./bin/console make:user
 ./bin/console make:entity User
+
+###################security check##################
+composer require sensiolabs/security-checker
+bin/console security:check
+    composer update # for update all package
