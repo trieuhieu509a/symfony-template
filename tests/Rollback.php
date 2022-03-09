@@ -1,8 +1,11 @@
 <?php
 namespace App\Tests;
 
-trait Rollback {
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
+trait Rollback {
+    /* @var KernelBrowser $client*/
+    public $client;
     public function setUp(): void
     {
         parent::setUp();
