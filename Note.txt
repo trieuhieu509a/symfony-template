@@ -82,3 +82,6 @@ bin/console security:check
 
 bin/console make:form
     UserType
+
+# bundle for datetime pipe in twig
+composer require knplabs/knp-time-bundle
