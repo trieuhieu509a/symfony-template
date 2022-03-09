@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Category;
+use App\Entity\Comment;
 use App\Entity\User;
 use App\Entity\Video;
 use App\Form\UserType;
@@ -43,6 +44,31 @@ class FrontController extends AbstractController
             'subcategories' => $categories,
             'videos'=>$videos
         ]);
+    }
+
+    /**
+     * @Route("/new-comment/{video}", methods={"POST"}, name="new_comment")
+     */
+    public function newComment(Video $video, Request $request )
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
+
+        if ( !empty( trim($request->request->get('comment')) ) )
+        {
+
+            // $video = $this->getDoctrine()->getRepository(Video::class)->find($video_id);
+
+            $comment = new Comment();
+            $comment->setContent($request->request->get('comment'));
+            $comment->setUser($this->getUser());
+            $comment->setVideo($video);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($comment);
+            $em->flush();
+        }
+
+        return $this->redirectToRoute('video_details',['video'=>$video->getId()]);
     }
 
     /**
