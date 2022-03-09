@@ -46,11 +46,14 @@ class FrontController extends AbstractController
     }
 
     /**
-     * @Route("/video-details", name="video_details")
+     * @Route("/video-details/{video}", name="video_details")
      */
-    public function videoDetails()
+    public function videoDetails(VideoRepository $repo, $video)
     {
-        return $this->render('front/video_details.html.twig');
+        return $this->render('front/video_details.html.twig',
+            [
+                'video'=>$repo->videoDetails($video),
+            ]);
     }
     /**
      * @Route("/search-results/{page}", methods={"GET"}, defaults={"page": "1"}, name="search_results")

@@ -22,6 +22,18 @@ class VideoRepository extends ServiceEntityRepository
         $this->paginator = $paginator;
     }
 
+    public function videoDetails($id)
+    {
+        return $this->createQueryBuilder('v')
+            ->leftJoin('v.comments', 'c')
+            ->leftJoin('c.user', 'u')
+            ->addSelect('c', 'u')
+            ->where('v.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
     public function findByTitle(string $query, int $page, ?string $sort_method)
     {
         $sort_method = $sort_method != 'rating' ? $sort_method : 'ASC'; // tmp
