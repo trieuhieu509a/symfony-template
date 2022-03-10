@@ -93,3 +93,8 @@ composer require --dev dama/doctrine-test-bundle
 
 ./node_modules/.bin/encore production
 ./node_modules/.bin/encore dev --watch
+
+############################# COUNT with HIDDEN ##############################################3
+COUNT(l) AS HIDDEN likes => flat array, if not use "HIDDEN" we will have array in array
+        $q = $dbquery->getQuery();
+        dump($q->getResult());
