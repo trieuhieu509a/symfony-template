@@ -36,7 +36,6 @@ class VideoRepository extends ServiceEntityRepository
 
     public function findByTitle(string $query, int $page, ?string $sort_method)
     {
-        $sort_method = $sort_method != 'rating' ? $sort_method : 'ASC'; // tmp
 
         $querybuilder = $this->createQueryBuilder('v');
         $searchTerms = $this->prepareQuery($query);
@@ -48,11 +47,27 @@ class VideoRepository extends ServiceEntityRepository
                 ->setParameter('t_'.$key, '%'.trim($term).'%');
         }
 
-        $dbquery =  $querybuilder
-            ->orderBy('v.title', $sort_method)
-            ->getQuery();
+        if($sort_method != 'rating')
+        {
+            $dbquery =  $querybuilder
+                ->orderBy('v.title', $sort_method)
+                ->leftJoin('v.comments', 'c')
+                ->leftJoin('v.usersThatLike', 'l')
+                ->leftJoin('v.usersThatDontLike', 'd')
+                ->addSelect('c','l','d')
+                ->getQuery();
+        }
+        else
+        {
+            $dbquery =  $querybuilder
+                ->addSelect('COUNT(l) AS HIDDEN likes') // bez hidden zwróci array: count + entity
+                ->leftJoin('v.usersThatLike', 'l')
+                ->groupBy('v')
+                ->orderBy('likes', 'DESC')
+                ->getQuery();
+        }
 
-        return $this->paginator->paginate($dbquery, $page, 5);
+        return $this->paginator->paginate($dbquery, $page, Video::perPage);
     }
 
     private function prepareQuery(string $query): array
