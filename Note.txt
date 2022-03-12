@@ -112,3 +112,13 @@ public function check()
             return $video;
         }
     }
+
+########################### REDIS ####################################
+sudo apt install redis-server
+sudo apt install php-redis # specify sersion if needed. Ex: php7.2-redis
+sudo nano /etc/redis/redis.conf
+    maxmemory 128mb
+    maxmemory-policy allkeys-lru
+
+sudo systemctl enable redis-server@.service
+sudo service apache2 restart
