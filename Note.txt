@@ -98,3 +98,17 @@ composer require --dev dama/doctrine-test-bundle
 COUNT(l) AS HIDDEN likes => flat array, if not use "HIDDEN" we will have array in array
         $q = $dbquery->getQuery();
         dump($q->getResult());
+
+
+public function check()
+    {
+        if($this->isSubscriptionValid)
+        {
+            return null;
+        }
+        else
+        {
+            static $video = Video::videoForNotLoggedInOrNoMembers; // $video is create only one with every call to check()
+            return $video;
+        }
+    }
