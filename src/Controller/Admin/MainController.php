@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller\Admin;
 
+use App\Entity\User;
 use App\Entity\Video;
 use App\Utils\CategoryTreeAdminOptionList;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,7 +18,29 @@ class MainController extends AbstractController
      */
     public function index()
     {
-        return $this->render('admin/my_profile.html.twig');
+        return $this->render('admin/my_profile.html.twig', [
+            'subscription' => $this->getUser()->getSubscription()
+        ]);
+    }
+
+    /**
+     * @Route("/cancel-plan", name="cancel_plan")
+     */
+    public function cancelPlan()
+    {
+        $user = $this->getDoctrine()->getRepository(User::class)->find($this->getUser());
+
+        $subscription = $user->getSubscription();
+        $subscription->setValidTo(new \Datetime());
+        $subscription->setPaymentStatus(null);
+        $subscription->setPlan('canceled');
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($user);
+        $entityManager->persist($subscription);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('admin_main_page');
     }
 
     /**

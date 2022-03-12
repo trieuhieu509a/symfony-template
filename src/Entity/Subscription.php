@@ -107,7 +107,7 @@ class Subscription
         return $this->payment_status;
     }
 
-    public function setPaymentStatus(string $payment_status): self
+    public function setPaymentStatus(?string $payment_status): self
     {
         $this->payment_status = $payment_status;
 
