@@ -86,7 +86,7 @@ bin/console make:form
 # bundle for datetime pipe in twig
 composer require knplabs/knp-time-bundle
 
-# Note: use package dama/doctrine-test-bundle for transaction in unit test
+# Note: use package dama/doctrine-test-bundle for rollback transaction database in unit test
 composer require --dev dama/doctrine-test-bundle
 
 # default symfony will create table "video_user" for "usersThatLike", to change table name use @ORM\JoinTable(name="likes")
