@@ -24,6 +24,22 @@ class MainController extends AbstractController
     }
 
     /**
+     * @Route("/delete-account", name="delete_account")
+     */
+    public function deleteAccount()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository(User::class)->find($this->getUser());
+
+        $em->remove($user);
+        $em->flush();
+
+        session_destroy();
+
+        return $this->redirectToRoute('main_page');
+    }
+
+    /**
      * @Route("/cancel-plan", name="cancel_plan")
      */
     public function cancelPlan()
