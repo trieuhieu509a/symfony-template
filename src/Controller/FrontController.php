@@ -107,14 +107,6 @@ class FrontController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/payment", name="payment")
-     */
-    public function payment()
-    {
-        return $this->render('front/payment.html.twig');
-    }
-
     public function mainCategories()
     {
         $categories = $this->getDoctrine()

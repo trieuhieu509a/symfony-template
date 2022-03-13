@@ -18,4 +18,12 @@ class SubscriptionController extends AbstractController
             'price' => Subscription::getPlanDataPrices(),
         ]);
     }
+
+    /**
+     * @Route("/payment", name="payment")
+     */
+    public function payment()
+    {
+        return $this->render('front/payment.html.twig');
+    }
 }
