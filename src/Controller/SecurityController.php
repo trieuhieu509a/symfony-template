@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Controller\Traits\SaveSubscription;
 use App\Entity\Subscription;
 use App\Entity\User;
 use App\Form\UserType;
@@ -15,7 +16,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
-
+    use SaveSubscription;
     /**
      * @Route("/login", name="login")
      */
@@ -39,6 +40,7 @@ class SecurityController extends AbstractController
      */
     public function register(UserPasswordEncoderInterface $password_encoder, Request $request, SessionInterface $session, $plan)
     {
+
         if( $request->isMethod('GET')  )
         {
             $session->set('planName',$plan);
@@ -59,6 +61,7 @@ class SecurityController extends AbstractController
             $user->setPassword($password);
             $user->setRoles(['ROLE_USER']);
 
+            // c_93
             $date = new \Datetime();
             $date->modify('+1 month');
             $subscription = new Subscription();
@@ -81,7 +84,8 @@ class SecurityController extends AbstractController
 
         if($this->isGranted('IS_AUTHENTICATED_REMEMBERED') && $plan == Subscription::getPlanDataNameByIndex(0)) // free plan
         {
-            // to do save subscription
+            $this->saveSubscription($plan,$this->getUser());
+
             return $this->redirectToRoute('admin_main_page');
 
         }
