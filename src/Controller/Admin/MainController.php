@@ -18,7 +18,7 @@ class MainController extends AbstractController
     /**
      * @Route("/", name="admin_main_page")
      */
-    public function index(Request $request)
+    public function index(Request $request /*c_98 Request*/)
     {
 
         $user = $this->getUser();
@@ -27,7 +27,11 @@ class MainController extends AbstractController
         $is_invalid = null;
         if ($form->isSubmitted() && $form->isValid())
         {
-            exit('valid');
+            $this->addFlash(
+                'success',
+                'Your changes were saved!'
+            );
+            return $this->redirectToRoute('admin_main_page');
         }
 
 
