@@ -15,6 +15,8 @@ class UserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $user = $options['user'];
+
         $builder
             ->add('name', TextType::class,[
                 'empty_data'=>''
@@ -33,12 +35,21 @@ class UserType extends AbstractType
                 // 'second_options' => array('label' => 'Repeat Password'),
             ))
         ;
+
+        if( $user && in_array('ROLE_ADMIN', $user->getRoles()) )
+        {
+            $builder->add('vimeo_api_key', TextType::class,[
+                'empty_data'=>''
+            ]);
+        }
+
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+            'user' => null
         ]);
     }
 }

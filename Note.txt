@@ -127,3 +127,9 @@ sudo service apache2 restart
 <label for="user_last_name">Last name</label>
 {{ form_widget(form.last_name, {'attr':{'class': is_invalid}}) }}
 => important : user_last_name
+
+take a look inside for set default in formtype :
+$resolver->setDefaults([
+            'data_class' => User::class,
+            'user' => null
+        ]);
