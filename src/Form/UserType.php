@@ -13,12 +13,20 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 class UserType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options): void
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class)
-            ->add('last_name', TextType::class)
-            ->add('email', EmailType::class)
+            ->add('name', TextType::class,[
+                'empty_data'=>''
+            ])
+            ->add('last_name', TextType::class,[
+                'empty_data'=>''
+            ])
+            ->add('email', EmailType::class,[
+                'empty_data'=>''
+            ])
+
+
             ->add('password', RepeatedType::class, array(
                 'type' => PasswordType::class,
                 // 'first_options'  => array('label' => 'Password'),
@@ -27,7 +35,7 @@ class UserType extends AbstractType
         ;
     }
 
-    public function configureOptions(OptionsResolver $resolver): void
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => User::class,

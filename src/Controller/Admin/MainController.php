@@ -3,8 +3,10 @@ namespace App\Controller\Admin;
 
 use App\Entity\User;
 use App\Entity\Video;
+use App\Form\UserType;
 use App\Utils\CategoryTreeAdminOptionList;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -16,10 +18,21 @@ class MainController extends AbstractController
     /**
      * @Route("/", name="admin_main_page")
      */
-    public function index()
+    public function index(Request $request)
     {
+        $form = $this->createForm(UserType::class);
+        $form->handleRequest($request);
+        $is_invalid = null;
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            exit('valid');
+        }
+
+
         return $this->render('admin/my_profile.html.twig', [
-            'subscription' => $this->getUser()->getSubscription()
+            'subscription' => $this->getUser()->getSubscription(),
+            'form'=>$form->createView(),
+            'is_invalid' => $is_invalid
         ]);
     }
 

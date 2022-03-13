@@ -122,3 +122,8 @@ sudo nano /etc/redis/redis.conf
 
 sudo systemctl enable redis-server@.service
 sudo service apache2 restart
+
+######################## Form convention #################################
+<label for="user_last_name">Last name</label>
+{{ form_widget(form.last_name, {'attr':{'class': is_invalid}}) }}
+=> important : user_last_name
