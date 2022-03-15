@@ -136,3 +136,7 @@ $resolver->setDefaults([
 
 ######################## upload file #################################
 composer require symfony/filesystem
+
+===========================================
+to use tag: @Security("user.getId() == comment.getUser().getId()"), install:
+composer require symfony/expression-language
