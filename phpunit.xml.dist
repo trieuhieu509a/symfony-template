@@ -19,6 +19,10 @@
     </php>
 
     <testsuites>
+        <testsuite name="Project Test Suite Order Conflict">
+            <file>tests/Controllers/Front/FrontControllerCommentsTest.php</file>
+            <file>tests/Controllers/Front/FrontControllerCacheTest.php</file>
+        </testsuite>
         <testsuite name="Project Test Suite">
             <directory>tests</directory>
         </testsuite>

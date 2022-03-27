@@ -162,5 +162,8 @@ File clear cache
 
 bin/console make:subscriber
 
+// to be able to test database queries count
+$client->enableProfiler();
+$client->getProfile()->getCollector('db')->getQueryCount()
 
 
