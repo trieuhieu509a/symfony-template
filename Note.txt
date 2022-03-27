@@ -166,4 +166,11 @@ bin/console make:subscriber
 $client->enableProfiler();
 $client->getProfile()->getCollector('db')->getQueryCount()
 
+=========================== fix doctrine cache deprecated ( Doctrine\Common\Cache\SQLite3Cache; ) ==========================================
+https://stackoverflow.com/questions/68462685/sqlite-error-opening-symfony-app-on-heroku
 
+====================== change from mysql to sqlite ==================================
+remove file in ./migrations
+bin/console make:migration
+bin/console doctrine:migrations:migrate
+bin/console doctrine:fixtures:load
