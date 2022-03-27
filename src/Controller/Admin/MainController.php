@@ -37,11 +37,11 @@ class MainController extends AbstractController
             $user->setPassword($password);
             $entityManager->persist($user);
             $entityManager->flush();
-            $translated = $translator->trans('Your changes were saved!');
+//            $translated = $translator->trans('Your changes were saved!');
 
             $this->addFlash(
                 'success',
-                $translated
+                'Your changes were saved!'
             );
             return $this->redirectToRoute('admin_main_page');
         }
