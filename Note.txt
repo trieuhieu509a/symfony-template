@@ -137,6 +137,18 @@ $resolver->setDefaults([
 ######################## upload file #################################
 composer require symfony/filesystem
 
-===========================================
+====================== Security =====================
 to use tag: @Security("user.getId() == comment.getUser().getId()"), install:
 composer require symfony/expression-language
+
+===========================send mail with swift mailer==========================================
+composer require symfony/swiftmailer-bundle
+simulate send mail by update config ( from swiftmailer prod to dev ) :
+swiftmailer:
+  url: '%env(MAILER_URL)%'
+  spool:
+    type: file
+    path: '%kernel.project_dir%/var/spool'
+send mail command:
+./bin/console swiftmailer:spool:send --message-limit=10 --env=prod
+
