@@ -7,6 +7,7 @@ use App\Entity\Comment;
 use App\Entity\Video;
 use App\Repository\VideoRepository;
 use App\Utils\CategoryTreeFrontPage;
+use App\Utils\Interfaces\CacheInterface;
 use App\Utils\VideoForNoValidSubscription;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -30,7 +31,7 @@ class FrontController extends AbstractController
     /**
      * @Route("/video-list/category/{categoryname},{id}/{page}", defaults={"page": "1"}, name="video_list")
      */
-    public function videoList($id, $page, CategoryTreeFrontPage $categories, Request $request, VideoForNoValidSubscription $video_no_members)
+    public function videoList($id, $page, CategoryTreeFrontPage $categories, Request $request, VideoForNoValidSubscription $video_no_members, CacheInterface $cache )
     {
         $ids = $categories->getChildIds($id);
         array_push($ids, $id);

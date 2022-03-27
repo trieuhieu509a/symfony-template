@@ -152,3 +152,6 @@ swiftmailer:
 send mail command:
 ./bin/console swiftmailer:spool:send --message-limit=10 --env=prod
 
+=========================== cache ==========================================
+composer require symfony/cache
+
