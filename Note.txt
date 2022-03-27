@@ -160,5 +160,7 @@ redis-cli FLUSHALL
 File clear cache
 ./bin/console cache:clear
 
+bin/console make:subscriber
+
 
 
