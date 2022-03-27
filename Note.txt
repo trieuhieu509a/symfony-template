@@ -155,3 +155,10 @@ send mail command:
 =========================== cache ==========================================
 composer require symfony/cache
 
+Redis clear cache
+redis-cli FLUSHALL
+File clear cache
+./bin/console cache:clear
+
+
+

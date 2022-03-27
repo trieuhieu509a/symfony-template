@@ -33,19 +33,34 @@ class FrontController extends AbstractController
      */
     public function videoList($id, $page, CategoryTreeFrontPage $categories, Request $request, VideoForNoValidSubscription $video_no_members, CacheInterface $cache )
     {
-        $ids = $categories->getChildIds($id);
-        array_push($ids, $id);
 
-        $videos = $this->getDoctrine()
-            ->getRepository(Video::class)
-            ->findByChildIds($ids ,$page, $request->get('sortby'));
+        $cache = $cache->cache;
+        $video_list = $cache->getItem('video_list'.$id.$page.$request->get('sortby'));
+        // $video_list->tag(['video_list']);
+        $video_list->expiresAfter(60);
 
-        $categories->getCategoryListAndParent($id);
-        return $this->render('front/video_list.html.twig',[
-            'subcategories' => $categories,
-            'videos'=>$videos,
-            'video_no_members' => $video_no_members->check()
-        ]);
+
+        if(!$video_list->isHit())
+        {
+            $ids = $categories->getChildIds($id);
+            array_push($ids, $id);
+
+            $videos = $this->getDoctrine()
+                ->getRepository(Video::class)
+                ->findByChildIds($ids ,$page, $request->get('sortby'));
+
+            $categories->getCategoryListAndParent($id);
+            $response = $this->render('front/video_list.html.twig',[
+                'subcategories' => $categories,
+                'videos'=>$videos,
+                'video_no_members' => $video_no_members->check()
+            ]);
+
+            $video_list->set($response);
+            $cache->save($video_list);
+        }
+
+        return $video_list->get();
     }
 
     /**
