@@ -174,3 +174,20 @@ remove file in ./migrations
 bin/console make:migration
 bin/console doctrine:migrations:migrate
 bin/console doctrine:fixtures:load
+
+=========================== remove git cache ===============================
+git rm -r --cached .
+git status
+
+============================= folow to install heroku ======================
+https://devcenter.heroku.com/articles/getting-started-with-php#set-up
+sudo snap install heroku --classic
+heroku login
+heroku create
+heroku config:set APP_ENV=heroku
+heroku config:set APP_DEBUG=0
+heroku config:set APP_SECRET=421347cdbf04480e77884b2f9ed7379b
+heroku config:set DATABASE_URL=sqlite:///%kernel.project_dir%/var/data.db
+echo 'web: $(composer config bin-dir)/heroku-php-apache2 public/' > Profile
+git branch : to see what current branch
+git push heroku main
