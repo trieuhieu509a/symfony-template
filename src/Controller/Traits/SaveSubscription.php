@@ -37,7 +37,7 @@ trait SaveSubscription {
             $subscription->setPaymentStatus('paid');
         }
 
-        $subscription->setPaymentStatus('paid'); // tmp
+        $subscription->setPaymentStatus('paid');
 
         $user->setSubscription($subscription);
 
